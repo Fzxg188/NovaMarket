@@ -16,7 +16,7 @@ Cada fragancia está presentada con descripciones ultra premium, notas olfativas
 - GitHub Pages para despliegue
 
 ## 🌐 Sitio en línea
-[Visita la tienda NOVAMARKET]https://fzxg188.github.io/NovaMarket/#perfumes
+[Visita la tienda NOVAMARKET](https://fzxg188.github.io/NovaMarket/#perfumes)
 ---
 
 © 2026 Franklin · NOVAMARKET Retail Premium
