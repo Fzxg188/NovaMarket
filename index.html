@@ -1,266 +1,727 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Tienda Online</title>
+    <meta charset="UTF-8">
+    <title>NOVAMARKET - Tienda Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Estilos básicos -->
-  <style>
-    :root {
-      --color-principal: #0078d7;
-      --color-fondo: #f5f5f5;
-      --color-texto: #333;
-      --color-card: #ffffff;
-    }
+    <!-- Tipografías -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+        :root {
+            --negro: #000;
+            --carbon: #111;
+            --gris-oscuro: #1a1a1a;
+            --gris-claro: #f2f2f2;
+            --blanco: #fff;
+            --acento: #e50914;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: var(--color-fondo);
-      color: var(--color-texto);
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-      background-color: var(--color-principal);
-      color: #fff;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        body {
+            background: #000;
+            color: var(--blanco);
+            font-family: 'Inter', sans-serif;
+        }
 
-    header h1 {
-      font-size: 1.5rem;
-    }
+        a { color: inherit; text-decoration: none; }
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 15px;
-      font-size: 0.95rem;
-    }
+        /* HEADER */
+        header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, var(--negro), var(--carbon));
+            border-bottom: 1px solid #222;
+            padding: 0.8rem 0;
+            z-index: 100;
+        }
 
-    main {
-      max-width: 1100px;
-      margin: 20px auto;
-      padding: 0 15px;
-    }
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .hero {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 25px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
 
-    .hero h2 {
-      margin-bottom: 10px;
-    }
+        nav {
+            display: flex;
+            gap: 1.2rem;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
 
-    .hero p {
-      margin-bottom: 10px;
-    }
+        nav a {
+            position: relative;
+        }
 
-    .hero button {
-      background-color: var(--color-principal);
-      color: #fff;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--acento);
+            transition: 0.25s;
+        }
 
-    .hero button:hover {
-      background-color: #005fa3;
-    }
+        nav a:hover::after {
+            width: 100%;
+        }
 
-    .productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
+        .header-icons {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
 
-    .producto-card {
-      background-color: var(--color-card);
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid #333;
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
-    .producto-imagen {
-      width: 100%;
-      height: 160px;
-      background-color: #ddd;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #666;
-      font-size: 0.9rem;
-    }
+        .icon-btn:hover {
+            border-color: var(--acento);
+            transform: translateY(-2px);
+        }
 
-    .producto-card h3 {
-      margin-bottom: 5px;
-      font-size: 1.05rem;
-    }
+        .icon-cart::before { content: "🛒"; }
+        .icon-user::before { content: "👤"; }
 
-    .producto-descripcion {
-      font-size: 0.9rem;
-      margin-bottom: 8px;
-    }
+        .cart-count {
+            font-size: 0.7rem;
+            background: var(--acento);
+            border-radius: 999px;
+            padding: 0.1rem 0.4rem;
+            margin-left: 0.2rem;
+        }
 
-    .producto-precio {
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #e53935;
-    }
+        /* HERO */
+        .hero {
+            max-width: 1200px;
+            margin: auto;
+            padding: 2.5rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
 
-    .producto-acciones {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-    }
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
 
-    .producto-acciones button {
-      background-color: var(--color-principal);
-      color: #fff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
+        .hero p {
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
 
-    .producto-acciones button:hover {
-      background-color: #005fa3;
-    }
+        .btn-primary {
+            padding: 0.8rem 1.6rem;
+            border-radius: 999px;
+            background: var(--acento);
+            border: none;
+            color: var(--blanco);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
-    .producto-acciones input[type="number"] {
-      width: 60px;
-      padding: 5px;
-    }
+        .btn-primary:hover {
+            background: #ff1a30;
+        }
 
-    footer {
-      margin-top: 30px;
-      padding: 15px 20px;
-      text-align: center;
-      font-size: 0.85rem;
-      color: #777;
-    }
-  </style>
+        .hero-image {
+            border-radius: 16px;
+            height: 220px;
+            background-image: linear-gradient(135deg, #111, #222);
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 25px rgba(255,255,255,0.08);
+        }
+
+        /* SECCIONES */
+        .section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+
+        /* CATEGORÍAS */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .category-card {
+            background: #111;
+            border: 1px solid #333;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .category-card:hover {
+            border-color: var(--acento);
+            transform: translateY(-3px);
+        }
+
+        .category-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .category-meta {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        /* PRODUCTOS */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .product-card {
+            background: #111;
+            border: 1px solid #333;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            border-color: var(--acento);
+            transform: translateY(-3px);
+        }
+
+        .product-image {
+            height: 140px;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-name {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-bottom: 0.4rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-weight: 600;
+        }
+
+        .product-btn {
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            border: 1px solid #444;
+            background: transparent;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: 0.2s;
+        }
+
+        .product-btn:hover {
+            border-color: var(--acento);
+            color: var(--blanco);
+        }
+
+        /* MODAL PRODUCTO */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .modal {
+            background: #111;
+            border-radius: 12px;
+            border: 1px solid #333;
+            max-width: 420px;
+            width: 90%;
+            padding: 1.5rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+        }
+
+        .modal-close {
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .modal-image {
+            height: 180px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-text {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-bottom: 0.8rem;
+        }
+
+        .modal-price {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        /* CARRITO PANEL */
+        .cart-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: #111;
+            border-left: 1px solid #333;
+            padding: 1rem;
+            transform: translateX(100%);
+            transition: 0.25s;
+            z-index: 150;
+        }
+
+        .cart-panel.open {
+            transform: translateX(0);
+        }
+
+        .cart-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1rem;
+        }
+
+        .cart-items {
+            font-size: 0.8rem;
+            color: #ccc;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            border-bottom: 1px solid #333;
+            padding: 0.5rem 0;
+        }
+
+        .cart-empty {
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        .cart-total {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid #222;
+            padding: 1.5rem;
+            text-align: center;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none; /* luego podemos hacer menú móvil */
+            }
+
+            .header-inner {
+                justify-content: space-between;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- Encabezado -->
-  <header>
-    <h1>Mi Tienda Online</h1>
-    <nav>
-      <a href="#productos">Productos</a>
-      <a href="#contacto">Contacto</a>
-      <a href="#carrito">Carrito</a>
-    </nav>
-  </header>
+    <!-- PANEL CARRITO -->
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-title">Carrito</div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-total" id="cartTotal"></div>
+        <button class="btn-primary" id="finishOrderBtn" style="margin-top:1rem;width:100%;">
+    Finalizar pedido
+</button>
 
-  <!-- Contenido principal -->
-  <main>
-    <!-- Sección hero / bienvenida -->
+    </div>
+
+    <!-- MODAL PRODUCTO -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-close" id="modalClose">×</div>
+            </div>
+            <div class="modal-image" id="modalImage"></div>
+            <div class="modal-text" id="modalText"></div>
+            <div class="modal-price" id="modalPrice"></div>
+            <button class="btn-primary" id="modalAddToCart">Agregar al carrito</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-inner">
+            <div class="logo-text">NOVAMARKET</div>
+
+            <nav>
+                <a href="#tecnologia">Tecnología</a>
+                <a href="#perfumes">Perfumes</a>
+                <a href="#decants">Decants</a>
+                <a href="#ropa">Ropa</a>
+                <a href="#accesorios">Accesorios</a>
+            </nav>
+
+            <div class="header-icons">
+                <div class="icon-btn icon-user"></div>
+                <div class="icon-btn icon-cart" id="cartButton">
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
     <section class="hero">
-      <h2>Bienvenido, Franklin</h2>
-      <p>Aquí puedes subir y mostrar tus productos para vender.</p>
-      <p>Esta es la base de tu tienda: catálogo, precios y botón de agregar al carrito.</p>
-      <button onclick="alert('Luego aquí puedes llevar al formulario de registro o login.')">
-        Empezar a comprar
-      </button>
+        <div>
+            <h1>Retail de alto nivel</h1>
+            <p>NovaMarket combina tecnología, perfumes, decants y moda en un catálogo premium con estética minimalista negra.</p>
+            <button class="btn-primary">Comprar ahora</button>
+        </div>
+
+        <div class="hero-image"></div>
     </section>
 
-    <!-- Catálogo de productos -->
-    <section id="productos">
-      <h2 style="margin-bottom: 15px;">Productos destacados</h2>
+    <!-- CATEGORÍAS -->
+    <section class="section">
+        <div class="section-title">Categorías principales</div>
+        <div class="section-subtitle">Tecnología, perfumes, decants, ropa y accesorios.</div>
 
-      <div class="productos">
-        <!-- Producto 1 -->
-        <article class="producto-card">
-          <div class="producto-imagen">
-            Imagen del producto
-          </div>
-          <h3>Producto 1</h3>
-          <p class="producto-descripcion">Descripción breve del producto 1.</p>
-          <p class="producto-precio">Q 150.00</p>
-          <div class="producto-acciones">
-            <input type="number" min="1" value="1">
-            <button onclick="agregarAlCarrito('Producto 1', 150)">Agregar al carrito</button>
-          </div>
-        </article>
+        <div class="categories-grid">
+            <div class="category-card" id="tecnologia">
+                <div class="category-name">Tecnología</div>
+                <div class="category-meta">Teléfonos, computadoras, televisores</div>
+            </div>
 
-        <!-- Producto 2 -->
-        <article class="producto-card">
-          <div class="producto-imagen">
-            Imagen del producto
-          </div>
-          <h3>Producto 2</h3>
-          <p class="producto-descripcion">Descripción breve del producto 2.</p>
-          <p class="producto-precio">Q 250.00</p>
-          <div class="producto-acciones">
-            <input type="number" min="1" value="1">
-            <button onclick="agregarAlCarrito('Producto 2', 250)">Agregar al carrito</button>
-          </div>
-        </article>
+            <div class="category-card" id="perfumes">
+                <div class="category-name">Perfumes</div>
+                <div class="category-meta">Hombre, mujer, unisex</div>
+            </div>
 
-        <!-- Producto 3 -->
-        <article class="producto-card">
-          <div class="producto-imagen">
-            Imagen del producto
-          </div>
-          <h3>Producto 3</h3>
-          <p class="producto-descripcion">Descripción breve del producto 3.</p>
-          <p class="producto-precio">Q 99.00</p>
-          <div class="producto-acciones">
-            <input type="number" min="1" value="1">
-            <button onclick="agregarAlCarrito('Producto 3', 99)">Agregar al carrito</button>
-          </div>
-        </article>
-      </div>
+            <div class="category-card" id="decants">
+                <div class="category-name">Decants 5 y 10 ml</div>
+                <div class="category-meta">Fragancias premium en muestras</div>
+            </div>
+
+            <div class="category-card" id="ropa">
+                <div class="category-name">Ropa</div>
+                <div class="category-meta">Hombres y mujeres</div>
+            </div>
+
+            <div class="category-card" id="accesorios">
+                <div class="category-name">Accesorios</div>
+                <div class="category-meta">Gorras, lentes, mochilas</div>
+            </div>
+        </div>
     </section>
 
-    <!-- Sección carrito (base) -->
-    <section id="carrito" style="margin-top: 30px;">
-      <h2>Carrito (demo)</h2>
-      <p id="carrito-mensaje" style="margin-top: 10px; font-size: 0.95rem;">
-        Aún no has agregado productos.
-      </p>
+    <!-- PRODUCTOS DESTACADOS -->
+    <section class="section">
+        <div class="section-title">Productos destacados</div>
+        <div class="section-subtitle">Ejemplos de catálogo premium.</div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Los productos se generan desde JavaScript -->
+        </div>
     </section>
 
-    <!-- Sección contacto -->
-    <section id="contacto" style="margin-top: 30px;">
-      <h2>Contacto</h2>
-      <p>Correo: ejemplo@mitienda.com</p>
-      <p>Teléfono: +502 0000 0000</p>
-    </section>
-  </main>
+    <!-- FOOTER -->
+    <footer>
+        © 2026 NOVAMARKET — Retail Premium
+    </footer>
 
-  <!-- Pie de página -->
-  <footer>
-    &copy; 2026 Mi Tienda Online. Todos los derechos reservados.
-  </footer>
+    <script>
+        // Catálogo de productos (ejemplo)
+        const products = [
+            {
+                id: 1,
+                name: "Smartphone Nova X Pro",
+                category: "Tecnología · Teléfonos",
+                price: 4999,
+                image: "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=600",
+                description: "Smartphone de alto rendimiento con pantalla OLED y cámara profesional."
+            },
+            {
+                id: 2,
+                name: "Decant 10 ml - Aventus",
+                category: "Perfumes · Decants 10 ml",
+                price: 349,
+                image: "https://images.pexels.com/photos/965989/pexels-photo-965989.jpeg?auto=compress&cs=tinysrgb&w=600",
+                description: "Decant profesional de 10 ml de fragancia nicho."
+            },
+            {
+                id: 3,
+                name: "Hoodie Nova Carbon",
+                category: "Ropa · Hombre",
+                price: 299,
+                image: "https://images.pexels.com/photos/6311655/pexels-photo-6311655.jpeg?auto=compress&cs=tinysrgb&w=600",
+                description: "Hoodie negro con detalles tipo fibra de carbono."
+            },
+            {
+                id: 4,
+                name: "Smart TV 55\" UltraBlack",
+                category: "Tecnología · Televisores",
+                price: 5499,
+                image: "https://images.pexels.com/photos/1448389/pexels-photo-1448389.jpeg?auto=compress&cs=tinysrgb&w=600",
+                description: "Televisor 4K con negros profundos y diseño minimalista."
+            }
+        ];
 
-  <!-- Lógica básica en JS -->
-  <script>
-    function agregarAlCarrito(nombre, precio) {
-      const mensaje = document.getElementById('carrito-mensaje');
-      mensaje.textContent = `Has agregado: ${nombre} (Q ${precio}) al carrito. Aquí luego puedes mostrar una lista real.`;
+        const productsGrid = document.getElementById("productsGrid");
+        const cartPanel = document.getElementById("cartPanel");
+        const cartButton = document.getElementById("cartButton");
+        const cartCount = document.getElementById("cartCount");
+        const cartItemsContainer = document.getElementById("cartItems");
+        const cartTotal = document.getElementById("cartTotal");
+
+        const modalOverlay = document.getElementById("modalOverlay");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalImage = document.getElementById("modalImage");
+        const modalText = document.getElementById("modalText");
+        const modalPrice = document.getElementById("modalPrice");
+        const modalClose = document.getElementById("modalClose");
+        const modalAddToCart = document.getElementById("modalAddToCart");
+
+        let cart = [];
+        let currentProduct = null;
+
+        // Render de productos
+        function renderProducts() {
+            productsGrid.innerHTML = "";
+            products.forEach(product => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.dataset.id = product.id;
+
+                card.innerHTML = `
+                    <div class="product-image" style="background-image:url('${product.image}')"></div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-category">${product.category}</div>
+                    <div class="product-footer">
+                        <div class="product-price">Q ${product.price}</div>
+                        <button class="product-btn">Agregar</button>
+                    </div>
+                `;
+
+                // Click en tarjeta → abrir modal
+                card.addEventListener("click", (e) => {
+                    if (!e.target.classList.contains("product-btn")) {
+                        openModal(product);
+                    }
+                });
+
+                // Botón agregar → agregar al carrito
+                card.querySelector(".product-btn").addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    addToCart(product);
+                });
+
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // Abrir modal
+        function openModal(product) {
+            currentProduct = product;
+            modalTitle.textContent = product.name;
+            modalImage.style.backgroundImage = `url('${product.image}')`;
+            modalText.textContent = product.description;
+            modalPrice.textContent = `Q ${product.price}`;
+            modalOverlay.style.display = "flex";
+        }
+
+        // Cerrar modal
+        modalClose.addEventListener("click", () => {
+            modalOverlay.style.display = "none";
+        });
+
+        modalOverlay.addEventListener("click", (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.style.display = "none";
+            }
+        });
+
+        // Agregar desde modal
+        modalAddToCart.addEventListener("click", () => {
+            if (currentProduct) {
+                addToCart(currentProduct);
+                modalOverlay.style.display = "none";
+            }
+        });
+
+        // Agregar al carrito
+        function addToCart(product) {
+            cart.push(product);
+            updateCartUI();
+        }
+
+        // Actualizar UI del carrito
+        function updateCartUI() {
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<div class="cart-empty">Tu carrito está vacío.</div>`;
+                cartTotal.textContent = "";
+                return;
+            }
+
+            cartItemsContainer.innerHTML = "";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                const div = document.createElement("div");
+                div.className = "cart-item";
+                div.innerHTML = `
+                    <div>${item.name}</div>
+                    <div>Q ${item.price}</div>
+                `;
+                cartItemsContainer.appendChild(div);
+            });
+
+            cartTotal.textContent = `Total: Q ${total}`;
+        }
+
+        // Abrir/cerrar panel carrito
+        cartButton.addEventListener("click", () => {
+            cartPanel.classList.toggle("open");
+        });
+        // Botón para enviar pedido a WhatsApp
+document.getElementById("finishOrderBtn").addEventListener("click", sendOrderToWhatsApp);
+
+// Enviar pedido a WhatsApp
+function sendOrderToWhatsApp() {
+    if (cart.length === 0) {
+        alert("Tu carrito está vacío.");
+        return;
     }
-  </script>
+
+    let message = "Hola, quiero hacer un pedido en NOVAMARKET:%0A%0A";
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        message += `${index + 1}. ${item.name} – Q ${item.price}%0A`;
+        total += item.price;
+    });
+
+    message += `%0ATotal: Q ${total}%0A%0A`;
+    message += "Mi nombre es: ";
+
+    const phone = "50250084143";
+    const url = `https://wa.me/${phone}?text=${message}`;
+
+    window.open(url, "_blank");
+}
+
+        // Inicializar
+        renderProducts();
+        updateCartUI();
+        
+    </script>
+
 </body>
 </html>
